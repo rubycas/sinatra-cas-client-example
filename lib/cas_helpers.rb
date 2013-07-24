@@ -18,7 +18,7 @@ module CasHelpers
   end
 
   def process_cas_login(request, session)
-    if request[:ticket] && request[:ticket] != session[:ticket]
+    if request[:ticket] && request[:ticket] != session[:cas_ticket]
 
       service_url = read_service_url(request)
       st = read_ticket(request[:ticket], service_url)
