@@ -64,7 +64,7 @@ module CasHelpers
     if request.GET
       params = request.GET.dup
       params.delete("ticket")
-      if params
+      unless params.empty?
         return [service_url, Rack::Utils.build_nested_query(params)].join('?')
       end
     end
