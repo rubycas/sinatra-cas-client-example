@@ -28,6 +28,7 @@ module CasHelpers
       if st.success
         session[:cas_ticket] = st.ticket
         session[:cas_user] = st.user
+        session[:cas_extra_attributes] = st.extra_attributes
         return service_url
       else
         raise "Service Ticket validation failed! #{st.failure_code} - #{st.failure_message}"
