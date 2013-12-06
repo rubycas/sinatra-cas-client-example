@@ -17,6 +17,6 @@ class CasExample < Sinatra::Base
   get "/protected" do
     require_authorization(request, session) unless logged_in?(request, session)
 
-    "you are logged in as #{session[:cas_user]}"
+    "you are logged in as #{session}"
   end
 end
