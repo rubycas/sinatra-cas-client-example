@@ -28,6 +28,8 @@ module CasHelpers
       if st.success
         session[:cas_ticket] = st.ticket
         session[:cas_user] = st.user
+        session[:cas_extra_attributes] = st.extra_attributes
+        return service_url
       else
         raise "Service Ticket validation failed! #{st.failure_code} - #{st.failure_message}"
       end
@@ -62,9 +64,9 @@ module CasHelpers
     service_url = url(request.path_info)
     if request.GET
       params = request.GET.dup
-      params.delete(:ticket)
-      if params
-        [service_url, Rack::Utils.build_nested_query(params)].join('?')
+      params.delete("ticket")
+      unless params.empty?
+        return [service_url, Rack::Utils.build_nested_query(params)].join('?')
       end
     end
     return service_url
